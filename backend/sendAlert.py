@@ -17,8 +17,8 @@ port = 587
 #authentication:'plain'
 #what we want the body and subject contents to be
 subject_content="ALERT 911\n"
-body_content_1="Fire detected, we are "
-body_content_2="% sure, Need assistance!!\n"
+body_content_1="Fire detected, we  need assistance!!"
+
 
 
 #login
@@ -35,7 +35,7 @@ def send_msg(modileNo,percentage):
     textmsg['From'] = "BLAZE SIGHT"
     textmsg['To'] = sms_gateway
     textmsg['Subject'] = subject_content
-    body = body_content_1 + str(percentage) + body_content_2
+    body = body_content_1
     textmsg.attach(MIMEText(body, 'plain'))
     sms = textmsg.as_string()
     server.sendmail(email,sms_gateway,sms)
@@ -51,7 +51,7 @@ def send_email(receiver_email,percentage):
     emailMessage['From'] = "BLAZE SIGHT"
     emailMessage['To'] = receiver_email
     emailMessage['Subject'] = subject_content
-    body = body_content_1 + str(percentage) + body_content_2
+    body = body_content_1
     emailMessage.attach(MIMEText(body, 'plain'))
     mailAlert = emailMessage.as_string()
     server.sendmail(email,receiver_email,mailAlert)

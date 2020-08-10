@@ -14,9 +14,9 @@ CORS(app)
 
 # Loading the model
 loaded_model_1 = keras.models.load_model('model')
-labels=['fire','neutral']
+labels=['fire', 'neutral', 'smoke']
 
-IMAGE_SIZE=124
+IMAGE_SIZE=128
 ################################################################################################
 ## Model testing
 # img = tf.keras.preprocessing.image.load_img('ggb.jpg', target_size=(IMAGE_SIZE, IMAGE_SIZE))
@@ -52,6 +52,8 @@ def predict_result(PIL_Image):
     tf_model_predictions1=loaded_model_1.predict(test_img1)
     predicted_ids1 = np.argmax(tf_model_predictions1)
     predicted_labels1 = labels[predicted_ids1]
+    if(predicted_ids1==2 and tf_model_predictions1[0][2]<0.85):
+        predicted_labels1=labels[1]
     return predicted_labels1
 
 @app.route('/predict',methods=['GET', 'POST', 'DELETE', 'PUT'])
